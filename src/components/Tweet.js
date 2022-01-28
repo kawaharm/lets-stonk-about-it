@@ -11,11 +11,13 @@ const { REACT_APP_SERVER_URL } = process.env;
 function Tweet(props) {
     // Hooks
     const [tweets, setTweets] = useState("Stonk");
+    const [sentimentScore, setScore] = useState(0);
 
     useEffect(() => {
         axios.get(`${REACT_APP_SERVER_URL}/tweets/`)
             .then((response) => {
                 console.log(response.data)
+                setScore(response.data)
             })
             .catch((error) => {
                 console.log('ERROR: ', error);
@@ -40,13 +42,14 @@ function Tweet(props) {
                             <div className="mb-2 text-center">Closing</div>
                             <div className="p-2 border border-primary text-center">99.25</div>
                         </Col>
-                        <Col className="m-3 p-3" style={{ backgroundColor: "purple" }}>
+                        <Col className="m-3 p-3" style={{ backgroundColor: "pink" }}>
                             <div className="mb-2 text-center">Sentiment Score</div>
-                            <div className="p-2 border border-primary text-center">99.25</div>
+                            <div className="p-2 border border-primary text-center"></div>
+                            <img src={sentimentScore} />
                         </Col>
                     </Row>
                     <Row>
-                        <Col className="m-3" style={{ backgroundColor: "purple" }}>Day Low</Col>
+                        <Col className="m-3" style={{ backgroundColor: "pink" }}>Day Low</Col>
                         <Col className="m-3" style={{ backgroundColor: "pink" }}>Day High</Col>
                     </Row>
                 </Col>
