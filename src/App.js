@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Components
 import Tweet from './components/Tweet';
+import Stock from './components/Stock';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
 
       <Routes>
         <Route path='/gme' element={<Tweet />} />
+        <Route path='/stock' element={<Stock />} />
       </Routes>
     </Router>
   );
