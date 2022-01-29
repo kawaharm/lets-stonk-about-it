@@ -1,7 +1,8 @@
 // Imports
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Button, Alert, Container, Row, Col, Stack } from 'react-bootstrap'
+import { Button, Alert, Container, Row, Col, Stack, Image } from 'react-bootstrap'
 
 
 // Use this key to connect to server
@@ -10,11 +11,12 @@ const { REACT_APP_SERVER_URL } = process.env;
 
 function Tweet(props) {
     // Hooks
-    const [tweets, setTweets] = useState("Stonk");
     const [sentimentScore, setScore] = useState(0);
+    const { id } = useParams();
 
     useEffect(() => {
-        axios.get(`${REACT_APP_SERVER_URL}/tweets/`)
+        const currentStock = { id }
+        axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id)
             .then((response) => {
                 console.log(response.data)
                 setScore(response.data)
@@ -26,14 +28,7 @@ function Tweet(props) {
 
     return (
         <Container fluid="xl">
-            <Stack>
-                <div className="bg-light border">First item</div>
-                <div className="bg-light border">Second item</div>
-                <div className="bg-light border">Third item</div>
-            </Stack>
-
             <Row>
-
                 <Col className="p-5" style={{ backgroundColor: "gray" }}>
                     <h1>Gamestop</h1>
                     <h2>$GME</h2>
@@ -45,7 +40,6 @@ function Tweet(props) {
                         <Col className="m-3 p-3" style={{ backgroundColor: "pink" }}>
                             <div className="mb-2 text-center">Sentiment Score</div>
                             <div className="p-2 border border-primary text-center"></div>
-                            <img src={sentimentScore} />
                         </Col>
                     </Row>
                     <Row>
@@ -53,10 +47,9 @@ function Tweet(props) {
                         <Col className="m-3" style={{ backgroundColor: "pink" }}>Day High</Col>
                     </Row>
                 </Col>
-
-                <Col style={{ backgroundColor: "green" }}>Tweets</Col>
-
-
+                <Col style={{ backgroundColor: "green" }}>
+                    <Image src={sentimentScore} />
+                </Col>
             </Row>
         </Container >
     );

@@ -25,8 +25,8 @@ function App() {
             <Nav.Link href="/">Home</Nav.Link>
             <NavDropdown title="Companies">
               <NavDropdown.Item as={Link} to="/gme">GME</NavDropdown.Item>
-              <NavDropdown.Item href="">AAPL</NavDropdown.Item>
-              <NavDropdown.Item href="">TSLA</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/aapl">AAPL</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/tsla">TSLA</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link href="">About</Nav.Link>
             <Nav.Link href="">Contact</Nav.Link>
@@ -35,7 +35,7 @@ function App() {
       </Navbar>
 
       <Routes>
-        <Route path='/gme' element={<Tweet />} />
+        <Route path='/:id' element={<Tweet />} />
         <Route path='/stock' element={<Stock />} />
       </Routes>
     </Router>
