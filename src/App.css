@@ -1,3 +1,12 @@
 .bg-navMain {
   background-color: burlywood;
 }
+
+.graphTitle{
+  font-family: 'Poppins', sans-serif;
+}
+
+.stockDet{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 20px;
+}
