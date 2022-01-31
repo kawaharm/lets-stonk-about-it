@@ -1,6 +1,6 @@
 // Imports
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Container, Row, Col, Image, Form } from 'react-bootstrap'
 import Stock from './Stock'
@@ -10,19 +10,23 @@ import Stock from './Stock'
 const { REACT_APP_SERVER_URL } = process.env;
 
 
-function Tweet() {
+function Tweet(props) {
     // Hooks
     const [sentimentScore, setScore] = useState(0);
     const [dateRange, setDateRange] = useState("")
-    const [stocks, setStocks] = useState([])
+    const [stocks, setStocks] = useState({})
     const { id } = useParams();
+    let location = useLocation();
+    let { stockName, ticker } = location.state;
 
 
     useEffect(() => {
+        console.log(location)
         const currentStock = { id };
         axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id)
             .then((response) => {
                 setScore(response.data)
+                console.log('STOCKS IN USEEFFECT', stocks)
             })
             .catch((error) => {
                 console.log('ERROR: ', error);
@@ -36,7 +40,7 @@ function Tweet() {
         console.log('dateRange after setDateRange: ', { dateRange })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const date = new Date();
         const today = date.toISOString().split('T')[0];
         const dates = [];
@@ -54,7 +58,7 @@ function Tweet() {
         }
 
         const currentStock = { id }
-        axios
+        await axios
             .post(`${REACT_APP_SERVER_URL}/stocks/`, {
                 ticker: currentStock.id,
                 dates: dates
@@ -62,7 +66,8 @@ function Tweet() {
             .then((response) => {
                 console.log('RESPONSE FROM POLYGON', response.data);
                 setStocks(response.data)
-                console.log(stocks.results[0].c)
+                console.log('STOCKS IN HANDLESUBMIT', stocks)
+                console.log('STOCKS IN HANDELSUBMIT', stocks.results[0].c)
 
             })
             .catch((error) => {
@@ -79,40 +84,46 @@ function Tweet() {
     }
 
     return (
-        <Container fluid="xl">
-            <Row>
-                <Col className="p-5" style={{ backgroundColor: "gray" }}>
-                    <h1>Gamestop</h1>
-                    <h2>$GME</h2>
-                    <Row>
-                        <Col className="m-3 p-3" style={{ backgroundColor: "pink" }}>
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Control
-                                    as="select"
-                                    value={dateRange}
-                                    onChange={handleChange}
-                                >
-                                    <option>Choose</option>
-                                    <option value="1-day">1 Day</option>
-                                    <option value="5-day">5 Days</option>
-                                    <option value="1-month">1 Month</option>
-                                </Form.Control>
-                                <Button type="button" onClick={handleSubmit}>Submit form</Button>
-                            </Form>
-                        </Col>
-                    </Row>
-                    <Stock
-                        dayClose={stocks.results[0].c}
-                        dayLow={stocks.results[0].h}
-                        dayHigh={stocks.results[0].l}
-                    />
-                </Col>
-                <Col style={{ backgroundColor: "green" }}>
-                    <h1 className="mt-5 mb-3 text-center graphTitle">Average Sentiment Score for Tweets</h1>
-                    <Image src={sentimentScore} />
-                </Col>
-            </Row >
-        </Container >
+        <div className="bg-dark">
+            <Container className="mt-5 bg-border-color" fluid="xl">
+                <Row>
+                    <Col className="p-5 border border-2 border-white" style={{ backgroundColor: "#5D6D7E" }}>
+                        <h1 className="text-white">{stockName}</h1>
+                        <h2 className="text-white">${ticker}</h2>
+                        <Row>
+                            <Col className="m-3 p-3 border border-primary border-1 border-dark rounded" style={{ backgroundColor: "#4D5656" }}>
+                                <Form onSubmit={handleSubmit} >
+                                    <Form.Label className="mb-2 text-white" >Date Range: </Form.Label>
+                                    <Form.Control
+                                        className="border border-dark rounded"
+                                        as="select"
+                                        value={dateRange}
+                                        onChange={handleChange}
+                                    >
+                                        <option>Choose</option>
+                                        <option value="1-day">1 Day</option>
+                                        <option value="5-day">5 Days</option>
+                                        <option value="1-month">1 Month</option>
+                                    </Form.Control>
+                                    <div className="text-center">
+                                        <Button className="m-2 bg-success" type="button" onClick={handleSubmit}>SUBMIT</Button>
+                                    </div>
+                                </Form>
+                            </Col>
+                        </Row>
+                        <Stock
+                            dayClose={99}
+                            dayLow={99}
+                            dayHigh={99}
+                        />
+                    </Col>
+                    <Col className="border border-2 border-black" style={{ backgroundColor: "#38b262" }}>
+                        <h1 className="mt-5 mb-3 text-center graphTitle text-white">Average Sentiment Score for Tweets</h1>
+                        <Image src={sentimentScore} />
+                    </Col>
+                </Row >
+            </Container >
+        </div>
     );
 }
 

@@ -1,5 +1,9 @@
 .bg-navMain {
-  background-color: burlywood;
+  background-color: #38b262;
+}
+
+.bg-border-color {
+  border: 3px solid #E5E8E8;
 }
 
 .graphTitle{
