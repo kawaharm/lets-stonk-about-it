@@ -42,7 +42,7 @@ function Tweet(props) {
         setDateRange(e.target.value)
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
         const date = new Date();
         const today = date.toISOString().split('T')[0];
         const dates = [];
@@ -61,7 +61,7 @@ function Tweet(props) {
 
         console.log('DATES', dates)
         const currentStock = { id }
-        await axios
+        axios
             .post(`${REACT_APP_SERVER_URL}/stocks/`, {
                 ticker: currentStock.id,
                 dates: dates
@@ -117,11 +117,22 @@ function Tweet(props) {
                                 </Form>
                             </Col>
                         </Row>
-                        <Stock
-                            dayClose={1}
-                            dayLow={1}
-                            dayHigh={1}
-                        />
+                        {
+                            Object.keys({ stocks }) ? (
+                                <Stock
+                                    dayClose={stocks.results[0].c}
+                                    dayLow={stocks.results[0].l}
+                                    dayHigh={stocks.results[0].h}
+                                />
+                            ) : (
+                                <Stock
+                                    dayClose={1}
+                                    dayLow={1}
+                                    dayHigh={1}
+                                />
+                            )}
+
+
                     </Col>
                     <Col className="border border-2 border-black" style={{ backgroundColor: "#38b262" }}>
                         <h1 className="mt-5 mb-3 text-center graphTitle text-white">Average Sentiment Score for Tweets</h1>
