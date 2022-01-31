@@ -31,7 +31,7 @@ function Tweet(props) {
             .catch((error) => {
                 console.log('ERROR: ', error);
             })
-    }, []);
+    }, [id]);
 
     const handleChange = (e) => {
         console.log('FROM SELECT before setDateRange: ', e.target.value)
@@ -73,14 +73,6 @@ function Tweet(props) {
             .catch((error) => {
                 console.log('ERROR: ', error);
             });
-    }
-
-    const displayStocks = () => {
-        return <Stock
-            dayClose={stocks.results[0].c}
-            dayLow={stocks.results[0].h}
-            dayHigh={stocks.results[0].l}
-        />
     }
 
     return (

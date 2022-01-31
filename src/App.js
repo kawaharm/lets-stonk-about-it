@@ -28,26 +28,44 @@ function App() {
           <Navbar.Collapse className="justify-content-end">
             <Nav className>
               <Nav.Link href="/" className="text-white">Home</Nav.Link>
-              <NavDropdown title="Companies" className="text-white">
+              <NavDropdown title="Companies" className="text-white" active>
                 <NavDropdown.Item as={Link}
                   to="/GME"
                   state={{
                     stockName: "Gamestop Corp",
                     ticker: "GME"
-                  }}>GME</NavDropdown.Item>
+                  }}>GME (Gamestop)</NavDropdown.Item>
                 <NavDropdown.Item as={Link}
                   to="/AAPL"
                   state={{
                     stockName: "Apple Inc",
                     ticker: "AAPL"
                   }}
-                >AAPL</NavDropdown.Item>
+                >AAPL (Apple)</NavDropdown.Item>
                 <NavDropdown.Item as={Link}
                   to="/TSLA"
                   state={{
                     stockName: "Tesla Inc",
                     ticker: "TSLA"
-                  }}>TSLA</NavDropdown.Item>
+                  }}>TSLA (Tesla)</NavDropdown.Item>
+                <NavDropdown.Item as={Link}
+                  to="/AMC"
+                  state={{
+                    stockName: "AMC Entertainment Holdings",
+                    ticker: "AMC"
+                  }}>AMC</NavDropdown.Item>
+                <NavDropdown.Item as={Link}
+                  to="/AMZN"
+                  state={{
+                    stockName: "Amazon.com Inc",
+                    ticker: "AMZN"
+                  }}>AMZN (Amazon)</NavDropdown.Item>
+                <NavDropdown.Item as={Link}
+                  to="/NVDA"
+                  state={{
+                    stockName: "NVIDIA",
+                    ticker: "NVDA"
+                  }}>NVDA (NVIDIA)</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link href="" className="text-white">About</Nav.Link>
               <Nav.Link href="" className="text-white">Contact</Nav.Link>
