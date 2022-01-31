@@ -2,6 +2,10 @@
   background-color: #38b262;
 }
 
+.container {
+  padding-bottom: 680px;
+}
+
 .bg-border-color {
   border: 3px solid #E5E8E8;
 }
@@ -14,3 +18,5 @@
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 20px;
 }
+
+

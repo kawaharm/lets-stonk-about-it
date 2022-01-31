@@ -1,5 +1,5 @@
 // Imports
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Container, Row, Col, Image, Form } from 'react-bootstrap'
@@ -16,6 +16,12 @@ function Tweet(props) {
     const [dateRange, setDateRange] = useState("")
     const [stocks, setStocks] = useState({})
     const { id } = useParams();
+    // const [currentStock, setCurrentStock] = useReducer(reducer,
+    //     {
+    //         dayClose: 0,
+    //         dayLow: 0,
+    //         dayHigh: 0
+    //     })
     let location = useLocation();
     let { stockName, ticker } = location.state;
 
@@ -26,7 +32,6 @@ function Tweet(props) {
         axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id)
             .then((response) => {
                 setScore(response.data)
-                console.log('STOCKS IN USEEFFECT', stocks)
             })
             .catch((error) => {
                 console.log('ERROR: ', error);
@@ -34,10 +39,7 @@ function Tweet(props) {
     }, [id]);
 
     const handleChange = (e) => {
-        console.log('FROM SELECT before setDateRange: ', e.target.value)
-        console.log('dateRAnge before setDateRange: ', { dateRange })
         setDateRange(e.target.value)
-        console.log('dateRange after setDateRange: ', { dateRange })
     }
 
     const handleSubmit = async () => {
@@ -57,6 +59,7 @@ function Tweet(props) {
             dates.push(oneMonth, today)
         }
 
+        console.log('DATES', dates)
         const currentStock = { id }
         await axios
             .post(`${REACT_APP_SERVER_URL}/stocks/`, {
@@ -64,21 +67,32 @@ function Tweet(props) {
                 dates: dates
             })
             .then((response) => {
-                console.log('RESPONSE FROM POLYGON', response.data);
-                setStocks(response.data)
-                console.log('STOCKS IN HANDLESUBMIT', stocks)
-                console.log('STOCKS IN HANDELSUBMIT', stocks.results[0].c)
-
+                let res = response.data;
+                console.log('RESPONSE DATA: ', res)
+                console.log('before setStocks: ', stocks);
+                setStocks(res);
+                console.log('after setStocks: ', stocks)
             })
             .catch((error) => {
                 console.log('ERROR: ', error);
             });
     }
 
+    // const displayStocks = (stockInfo) => {
+    //     let dayClose = stockInfo.results[0].c
+    //     let dayLow = stockInfo.results[0].l
+    //     let dayHigh = stockInfo.results[0].h
+    //     return <Stock
+    //         dayClose={dayClose}
+    //         dayLow={dayLow}
+    //         dayHigh={dayHigh}
+    //     />
+    // }
+
     return (
         <div className="bg-dark">
-            <Container className="mt-5 bg-border-color" fluid="xl">
-                <Row>
+            <Container className="mt-5 container" fluid="xl">
+                <Row className=" bg-border-color">
                     <Col className="p-5 border border-2 border-white" style={{ backgroundColor: "#5D6D7E" }}>
                         <h1 className="text-white">{stockName}</h1>
                         <h2 className="text-white">${ticker}</h2>
@@ -104,9 +118,9 @@ function Tweet(props) {
                             </Col>
                         </Row>
                         <Stock
-                            dayClose={99}
-                            dayLow={99}
-                            dayHigh={99}
+                            dayClose={1}
+                            dayLow={1}
+                            dayHigh={1}
                         />
                     </Col>
                     <Col className="border border-2 border-black" style={{ backgroundColor: "#38b262" }}>
