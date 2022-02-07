@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="bg-dark">
       <Router>
-        <Navbar bg="navMain" variant="dark" sticky="top" expand="md" collapseOnSelect>
+        <Navbar bg="navMain" variant="dark" sticky="top" expand="lg" collapseOnSelect>
           <Navbar.Brand>
             <h4 style={{ marginLeft: "20px" }}>📈 Let's Stonk About It 📉</h4>
           </Navbar.Brand>

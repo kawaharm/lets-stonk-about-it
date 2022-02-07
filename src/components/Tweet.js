@@ -16,12 +16,6 @@ function Tweet(props) {
     const [dateRange, setDateRange] = useState("")
     const [stocks, setStocks] = useState({})
     const { id } = useParams();
-    // const [currentStock, setCurrentStock] = useReducer(reducer,
-    //     {
-    //         dayClose: 0,
-    //         dayLow: 0,
-    //         dayHigh: 0
-    //     })
     let location = useLocation();
     let { stockName, ticker } = location.state;
 
@@ -78,17 +72,6 @@ function Tweet(props) {
             });
     }
 
-    // const displayStocks = (stockInfo) => {
-    //     let dayClose = stockInfo.results[0].c
-    //     let dayLow = stockInfo.results[0].l
-    //     let dayHigh = stockInfo.results[0].h
-    //     return <Stock
-    //         dayClose={dayClose}
-    //         dayLow={dayLow}
-    //         dayHigh={dayHigh}
-    //     />
-    // }
-
     return (
         <div className="bg-dark">
             <Container className="mt-5 container" fluid="xl">
@@ -117,24 +100,22 @@ function Tweet(props) {
                                 </Form>
                             </Col>
                         </Row>
-                        {
-                            Object.keys({ stocks }) ? (
-                                <Stock
-                                    dayClose={stocks.results[0].c}
-                                    dayLow={stocks.results[0].l}
-                                    dayHigh={stocks.results[0].h}
-                                />
-                            ) : (
-                                <Stock
-                                    dayClose={1}
-                                    dayLow={1}
-                                    dayHigh={1}
-                                />
-                            )}
+                        {/* {/* {
+                            Object.keys({ stocks }) != 0 ? ( */}
+                        {/* <Stock
+                            dayClose={stocks.results[0].c}
+                            dayLow={stocks.results[0].l}
+                            dayHigh={stocks.results[0].h}
+                        /> */}
 
+                        <Stock
+                            dayClose={"--"}
+                            dayLow={"--"}
+                            dayHigh={"--"}
+                        />
 
                     </Col>
-                    <Col className="border border-2 border-black" style={{ backgroundColor: "#38b262" }}>
+                    <Col className="border border-2 border-black pb-3" style={{ backgroundColor: "#38b262" }}>
                         <h1 className="mt-5 mb-3 text-center graphTitle text-white">Average Sentiment Score for Tweets</h1>
                         <Image src={sentimentScore} />
                     </Col>
