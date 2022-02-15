@@ -25,6 +25,7 @@ function Tweet(props) {
         const currentStock = { id };
         axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id)
             .then((response) => {
+                console.log('RESPONSE DATA: ', response.data)
                 setScore(response.data)
             })
             .catch((error) => {
@@ -102,17 +103,17 @@ function Tweet(props) {
                         </Row>
                         {/* {/* {
                             Object.keys({ stocks }) != 0 ? ( */}
-                        {/* <Stock
+                        <Stock
                             dayClose={stocks.results[0].c}
                             dayLow={stocks.results[0].l}
                             dayHigh={stocks.results[0].h}
-                        /> */}
+                        />
 
-                        <Stock
+                        {/* <Stock
                             dayClose={"--"}
                             dayLow={"--"}
                             dayHigh={"--"}
-                        />
+                        /> */}
 
                     </Col>
                     <Col className="border border-2 border-black pb-3" style={{ backgroundColor: "#38b262" }}>
