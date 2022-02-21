@@ -10,6 +10,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Components
+import Homepage from './components/Homepage';
 import Tweet from './components/Tweet';
 import Stock from './components/Stock';
 
@@ -74,6 +75,7 @@ function App() {
         </Navbar>
 
         <Routes>
+          <Route path='/' element={<Homepage />} />
           <Route path='/:id' element={<Tweet />} />
           <Route path='/stock' element={<Stock />} />
         </Routes>
