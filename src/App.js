@@ -25,7 +25,7 @@ function App() {
             <h4 style={{ marginLeft: "20px" }}>📈 Let's Stonk About It 📉</h4>
           </Navbar.Brand>
           <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
+          <Navbar.Collapse className="justify-content-start">
             <Nav className>
               <Nav.Link href="/" className="text-white">Home</Nav.Link>
               <NavDropdown title="Companies" className="text-white" active>
