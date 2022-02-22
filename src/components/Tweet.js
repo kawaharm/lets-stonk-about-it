@@ -1,6 +1,7 @@
 // Imports
 import React, { useState, useEffect, useReducer } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import { Button, Container, Row, Col, Image, Form } from 'react-bootstrap'
 import axios from 'axios';
 import Stock from './Stock'
 
@@ -102,17 +103,17 @@ function Tweet(props) {
                         </Row>
                         {/* {/* {
                             Object.keys({ stocks }) != 0 ? ( */}
-                        <Stock
+                        {/* <Stock
                             dayClose={stocks.results[0].c}
                             dayLow={stocks.results[0].l}
                             dayHigh={stocks.results[0].h}
-                        />
+                        /> */}
 
-                        {/* <Stock
+                        <Stock
                             dayClose={"--"}
                             dayLow={"--"}
                             dayHigh={"--"}
-                        /> */}
+                        />
 
                     </Col>
                     <Col className="border border-2 border-black pb-3" style={{ backgroundColor: "#38b262" }}>
