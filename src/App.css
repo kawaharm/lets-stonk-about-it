@@ -21,9 +21,17 @@
 
 .homeTitle {
   font-family: 'Impact', sans-serif;
+  font-size: 5rem;
+  text-align: center;
+
 }
 
 .homeTitle span {
   color: red;
 }
 
+.homeSubTitle {
+  font-family: 'Impact', sans-serif;
+  font-size: 3rem;
+  text-align: center;
+}
