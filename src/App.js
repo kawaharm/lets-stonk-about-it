@@ -21,14 +21,14 @@ function App() {
   return (
     <div className="bg-dark">
       <Router>
-        <Navbar className="navbar" style={{ backgroundColor: "#38b262" }} variant="light" sticky="top" expand="lg" collapseOnSelect>
+        <Navbar className="navbar" style={{ backgroundColor: "#38b262" }} variant="dark" sticky="top" expand="lg" collapseOnSelect>
           <Navbar.Brand>
-            <div className="nav-logo text-light" style={{ marginLeft: "20px" }}>📈 Lets<span>Stonk</span> 📉</div>
+            <div className="nav-logo text-light" style={{ marginLeft: "20px" }}>📈 Let's<span>Stonk</span> 📉</div>
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-start">
             <Nav className>
-              <Nav.Link href="/" className="text-dark">Home</Nav.Link>
+              <Nav.Link href="/" className="text-light">Home</Nav.Link>
               <NavDropdown title="Companies" className="text-light navdropdown" active>
                 <NavDropdown.Item as={Link}
                   to="/GME"
@@ -68,8 +68,8 @@ function App() {
                     ticker: "NVDA"
                   }}>NVDA (NVIDIA)</NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href="" className="text-dark">About</Nav.Link>
-              <Nav.Link href="" className="text-dark">Contact</Nav.Link>
+              <Nav.Link href="" className="text-light">About</Nav.Link>
+              <Nav.Link href="" className="text-light">Contact</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
