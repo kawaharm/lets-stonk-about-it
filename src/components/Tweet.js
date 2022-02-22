@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { Button, Container, Row, Col, Image, Form } from 'react-bootstrap'
 import Stock from './Stock'
 
 
