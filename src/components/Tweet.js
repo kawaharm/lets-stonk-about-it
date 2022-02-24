@@ -19,63 +19,75 @@ function Tweet(props) {
     let location = useLocation();
     let { stockName, ticker } = location.state;
 
+    let ticky = "";
+    let datey =
 
-    useEffect(() => {
-        console.log(location)
-        const currentStock = { id };
-        // axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id)
-        //     .then((response) => {
-        //         console.log('RESPONSE DATA: ', response.data)
-        //         setScore(response.data)
-        //     })
-        //     .catch((error) => {
-        //         console.log('ERROR: ', error);
-        //     })
 
-        const fetchData = async () => {
-            // const resTweet = await axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id);
-            // if (resTweet.data) {
-            //     console.log('tweety', resTweet.data);
-            //     setScore(resTweet.data);
-            // }
-            // else {
-            //     console.log('error getting tweets')
-            // }
+        useEffect(() => {
+            console.log(location)
+            const currentStock = { id };
+            // axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id)
+            //     .then((response) => {
+            //         console.log('RESPONSE DATA: ', response.data)
+            //         setScore(response.data)
+            //     })
+            //     .catch((error) => {
+            //         console.log('ERROR: ', error);
+            //     })
 
-            const date = new Date();
-            const today = date.toISOString().split('T')[0];
-            const dates = [];
+            const fetchData = async () => {
+                // const resTweet = await axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id);
+                // if (resTweet.data) {
+                //     console.log('tweety', resTweet.data);
+                //     setScore(resTweet.data);
+                // }
+                // else {
+                //     console.log('error getting tweets')
+                // }
 
-            if (dateRange === "1-day") {
-                dates.push(today, today);
-            } else if (dateRange === "5-day") {
-                let fiveDays = date.setDate(date.getDate() - 5)
-                fiveDays = new Date(fiveDays).toISOString().split('T')[0]
-                dates.push(fiveDays, today)
-            } else if (dateRange === "1-month") {
-                let oneMonth = date.setMonth(date.getMonth() - 1)
-                oneMonth = new Date(oneMonth).toISOString().split('T')[0]
-                dates.push(oneMonth, today)
+                // const date = new Date();
+                // const today = date.toISOString().split('T')[0];
+                // const dates = [];
+
+                // if (dateRange === "1-day") {
+                console.log("setDateRange: ", dateRange);    // Remove after testing 09809890890890-890-80-
+                //     dates.push(today, today);
+                //     console.log("1 day range: ", dates);    // Remove after testing 09809890890890-890-80-
+                // } else if (dateRange === "5-day") {
+                //     let fiveDays = date.setDate(date.getDate() - 5)
+                //     fiveDays = new Date(fiveDays).toISOString().split('T')[0]
+                //     dates.push(fiveDays, today)
+                //     console.log("5 day range: ", dates);    // Remove after testing 09809890890890-890-80-
+                // } else if (dateRange === "1-month") {
+                //     let oneMonth = date.setMonth(date.getMonth() - 1)
+                //     oneMonth = new Date(oneMonth).toISOString().split('T')[0]
+                //     dates.push(oneMonth, today)
+                // }
+                if (stocks) {
+                    console.log("dayClose=", stocks.results[0].c)
+                    console.log("dayLow=", stocks.results[0].l)
+                }
+
+
+                //     const resStock = await axios.post(`${REACT_APP_SERVER_URL}/stocks/`, {
+                //         ticker: currentStock.id,
+                //         dates: dates
+                //     })
+
+                //     if (resStock.data) {
+                //         console.log('stocky', resStock.data);
+                //     }
+                //     else {
+                //         console.log('error getting stocks')
+                //     }
             }
 
-            const resStock = await axios.post(`${REACT_APP_SERVER_URL}/stocks/`, {
-                ticker: currentStock.id,
-                dates: dates
-            })
-
-            if (resStock.data) {
-                console.log('stocky', resStock.data);
-            }
-            else {
-                console.log('error getting stocks')
-            }
-        }
-
-        fetchData();
-    }, [{ id }]);
+            fetchData();
+        }, [{ id }]);
 
     const handleChange = (e) => {
         setDateRange(e.target.value)
+        console.log("Set Date Range", dateRange);   // Remove AFTER TESTING )()*()()*)*)*)*)*)*
     }
 
     const handleSubmit = () => {
