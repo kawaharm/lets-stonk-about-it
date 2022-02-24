@@ -23,15 +23,56 @@ function Tweet(props) {
     useEffect(() => {
         console.log(location)
         const currentStock = { id };
-        axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id)
-            .then((response) => {
-                console.log('RESPONSE DATA: ', response.data)
-                setScore(response.data)
+        // axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id)
+        //     .then((response) => {
+        //         console.log('RESPONSE DATA: ', response.data)
+        //         setScore(response.data)
+        //     })
+        //     .catch((error) => {
+        //         console.log('ERROR: ', error);
+        //     })
+
+        const fetchData = async () => {
+            // const resTweet = await axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id);
+            // if (resTweet.data) {
+            //     console.log('tweety', resTweet.data);
+            //     setScore(resTweet.data);
+            // }
+            // else {
+            //     console.log('error getting tweets')
+            // }
+
+            const date = new Date();
+            const today = date.toISOString().split('T')[0];
+            const dates = [];
+
+            if (dateRange === "1-day") {
+                dates.push(today, today);
+            } else if (dateRange === "5-day") {
+                let fiveDays = date.setDate(date.getDate() - 5)
+                fiveDays = new Date(fiveDays).toISOString().split('T')[0]
+                dates.push(fiveDays, today)
+            } else if (dateRange === "1-month") {
+                let oneMonth = date.setMonth(date.getMonth() - 1)
+                oneMonth = new Date(oneMonth).toISOString().split('T')[0]
+                dates.push(oneMonth, today)
+            }
+
+            const resStock = await axios.post(`${REACT_APP_SERVER_URL}/stocks/`, {
+                ticker: currentStock.id,
+                dates: dates
             })
-            .catch((error) => {
-                console.log('ERROR: ', error);
-            })
-    }, [id]);
+
+            if (resStock.data) {
+                console.log('stocky', resStock.data);
+            }
+            else {
+                console.log('error getting stocks')
+            }
+        }
+
+        fetchData();
+    }, [{ id }]);
 
     const handleChange = (e) => {
         setDateRange(e.target.value)
