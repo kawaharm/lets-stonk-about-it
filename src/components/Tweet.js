@@ -13,73 +13,72 @@ const { REACT_APP_SERVER_URL } = process.env;
 function Tweet(props) {
     // Hooks
     const [sentimentScore, setScore] = useState(0);
-    const [dateRange, setDateRange] = useState("1-day")
-    const [stocks, setStocks] = useState({})
+    const [dateRange, setDateRange] = useState("1-day");
+    const [timePeriod, setTimePeriod] = useState("");
+    const [stocks, setStocks] = useState({});
     const { id } = useParams();
     let location = useLocation();
     let { stockName, ticker } = location.state;
 
-    let stocky = {};
+    let currentStock = {};
 
-    const fetchStocks = async () => {
+    const fetchStocks = async (company) => {
         const date = new Date();
         const today = Math.floor(date.getTime() / 1000);
         const dates = [];
+        console.log("COMPANY", company);
 
         if (dateRange === "1-day") {
             dates.push(today, today);
+            setTimePeriod("D");
         } else if (dateRange === "5-day") {
             let fiveDays = today - 5 * 86400;
             dates.push(fiveDays, today)
+            setTimePeriod("W");
         } else if (dateRange === "1-month") {
             let oneMonth = today - 2629743;
             dates.push(oneMonth, today)
+            setTimePeriod("M");
         }
 
-        console.log('DATES', dates)
-        const currentStock = { id }
-        // await axios
-        //     .post(`${REACT_APP_SERVER_URL}/stocks/`, {
-        //         ticker: currentStock.id,
-        //         dates: dates
-        //     })
-        //     .then((response) => {
-        //         let res = response.data;
-        //         console.log('RESPONSE DATA: ', res)
-        //         stocky = res;
-
-        //     })
-        //     .catch((error) => {
-        //         console.log('ERROR: ', error);
-        //     });
+        await axios
+            .post(`${REACT_APP_SERVER_URL}/stocks/`, {
+                ticker: company.id,
+                period: timePeriod,
+                dates: dates
+            })
+            .then((response) => {
+                let res = response.data;
+                currentStock = res;
+                console.log('CURRENT STOCK INSIDE FETCH ', currentStock);
+            })
+            .catch((error) => {
+                console.log('ERROR: ', error);
+            });
     }
 
     useEffect(() => {
-        console.log(location)
-        // const currentStock = { id };
-        // axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id)
-        //     .then((response) => {
-        //         console.log('RESPONSE DATA: ', response.data)
-        //         setScore(response.data)
-        //     })
-        //     .catch((error) => {
-        //         console.log('ERROR: ', error);
-        //     })
+        const company = { id };
+        axios.post(`${REACT_APP_SERVER_URL}/tweets/`, company.id)
+            .then((response) => {
+                setScore(response.data)
+                console.log('RESPONSE IN USEEFFECT: ', response);
+            })
+            .catch((error) => {
+                console.log('ERROR: ', error);
+            })
 
-        fetchStocks();
-    }, [{ id }]);
+        fetchStocks(company);
+    }, []);
 
     const handleChange = (e) => {
         e.preventDefault();
         setDateRange(e.target.value)
-        console.log("Set Date Range", dateRange);   // Remove AFTER TESTING )()*()()*)*)*)*)*)*
     }
 
     const handleSubmit = () => {
-        console.log('before setStocks: ', stocks);
-        console.log('stocky inside handleSubmit: ', stocky);
-        setStocks(stocky);
-        console.log('after setStocks: ', stocks);
+        setStocks(currentStock);
+        console.log('STOCK AFTER HANDLESUBMIT', stocks);
     }
 
     return (
@@ -122,9 +121,9 @@ function Tweet(props) {
                                 :
                                 // console.log("STOCKS INSIDE RETURN", stocks)
                                 <Stock
-                                    dayClose={stocks.results[0].c}
-                                    dayLow={stocks.results[0].l}
-                                    dayHigh={stocks.results[0].h}
+                                    dayClose={stocks.c[0]}
+                                    dayLow={stocks.l[0]}
+                                    dayHigh={stocks.h[0]}
                                 />
                         }
 
