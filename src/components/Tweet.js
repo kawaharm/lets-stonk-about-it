@@ -14,7 +14,7 @@ function Tweet(props) {
     // Hooks
     const [sentimentScore, setScore] = useState(0);
     const [dateRange, setDateRange] = useState("1-day");
-    const [timePeriod, setTimePeriod] = useState("");
+    // const [timePeriod, setTimePeriod] = useState("");
     const [stocks, setStocks] = useState({});
     const { id } = useParams();
     let location = useLocation();
@@ -26,19 +26,30 @@ function Tweet(props) {
         const date = new Date();
         const today = Math.floor(date.getTime() / 1000);
         const dates = [];
+        const timePeriod = "";
         console.log("COMPANY", company);
 
         if (dateRange === "1-day") {
             dates.push(today, today);
-            setTimePeriod("D");
+            console.log('1 day dates: ', dates);
+            // setTimePeriod("D");
+            timePeriod = "D";
         } else if (dateRange === "5-day") {
             let fiveDays = today - 5 * 86400;
             dates.push(fiveDays, today)
-            setTimePeriod("W");
+            console.log('1 week dates: ', dates);
+
+            // setTimePeriod("W");
+            timePeriod = "W";
+
         } else if (dateRange === "1-month") {
             let oneMonth = today - 2629743;
             dates.push(oneMonth, today)
-            setTimePeriod("M");
+            console.log('1 month dates: ', dates);
+
+            // setTimePeriod("M");
+            timePeriod = "M";
+
         }
 
         await axios
@@ -68,7 +79,10 @@ function Tweet(props) {
                 console.log('ERROR: ', error);
             })
 
+        console.log("currentStock Before fetchstocks, ", currentStock)
         fetchStocks(company);
+        console.log("currentStock After fetchstocks, ", currentStock)
+
     }, []);
 
     const handleChange = (e) => {
