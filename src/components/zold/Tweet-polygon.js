@@ -23,35 +23,40 @@ function Tweet(props) {
 
     const fetchStocks = async () => {
         const date = new Date();
-        const today = Math.floor(date.getTime() / 1000);
+        const today = date.toISOString().split('T')[0];
         const dates = [];
 
         if (dateRange === "1-day") {
             dates.push(today, today);
         } else if (dateRange === "5-day") {
-            let fiveDays = today - 5 * 86400;
+            let fiveDays = date.setDate(date.getDate() - 5)
+            fiveDays = new Date(fiveDays).toISOString().split('T')[0]
             dates.push(fiveDays, today)
         } else if (dateRange === "1-month") {
-            let oneMonth = today - 2629743;
+            let oneMonth = date.setMonth(date.getMonth() - 1)
+            oneMonth = new Date(oneMonth).toISOString().split('T')[0]
             dates.push(oneMonth, today)
         }
 
         console.log('DATES', dates)
         const currentStock = { id }
-        // await axios
-        //     .post(`${REACT_APP_SERVER_URL}/stocks/`, {
-        //         ticker: currentStock.id,
-        //         dates: dates
-        //     })
-        //     .then((response) => {
-        //         let res = response.data;
-        //         console.log('RESPONSE DATA: ', res)
-        //         stocky = res;
-
-        //     })
-        //     .catch((error) => {
-        //         console.log('ERROR: ', error);
-        //     });
+        await axios
+            .post(`${REACT_APP_SERVER_URL}/stocks/`, {
+                ticker: currentStock.id,
+                dates: dates
+            })
+            .then((response) => {
+                let res = response.data;
+                console.log('RESPONSE DATA: ', res)
+                // console.log('before setStocks: ', stocks);
+                // setStocks(res);
+                stocky = res;
+                console.log("STOCKY, ", stocky);    // remove later eoifjuioasdlhjf;asdhfo;uiasdhf
+                // console.log('after setStocks: ', stocks);
+            })
+            .catch((error) => {
+                console.log('ERROR: ', error);
+            });
     }
 
     useEffect(() => {
