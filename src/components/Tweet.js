@@ -13,84 +13,15 @@ const { REACT_APP_SERVER_URL } = process.env;
 function Tweet(props) {
     // Hooks
     const [sentimentScore, setScore] = useState(0);
-    const [dateRange, setDateRange] = useState("")
+    const [dateRange, setDateRange] = useState("1-day")
     const [stocks, setStocks] = useState({})
     const { id } = useParams();
     let location = useLocation();
     let { stockName, ticker } = location.state;
 
-    let ticky = "";
-    let datey =
+    let stocky = {};
 
-
-        useEffect(() => {
-            console.log(location)
-            const currentStock = { id };
-            // axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id)
-            //     .then((response) => {
-            //         console.log('RESPONSE DATA: ', response.data)
-            //         setScore(response.data)
-            //     })
-            //     .catch((error) => {
-            //         console.log('ERROR: ', error);
-            //     })
-
-            const fetchData = async () => {
-                // const resTweet = await axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id);
-                // if (resTweet.data) {
-                //     console.log('tweety', resTweet.data);
-                //     setScore(resTweet.data);
-                // }
-                // else {
-                //     console.log('error getting tweets')
-                // }
-
-                // const date = new Date();
-                // const today = date.toISOString().split('T')[0];
-                // const dates = [];
-
-                // if (dateRange === "1-day") {
-                console.log("setDateRange: ", dateRange);    // Remove after testing 09809890890890-890-80-
-                //     dates.push(today, today);
-                //     console.log("1 day range: ", dates);    // Remove after testing 09809890890890-890-80-
-                // } else if (dateRange === "5-day") {
-                //     let fiveDays = date.setDate(date.getDate() - 5)
-                //     fiveDays = new Date(fiveDays).toISOString().split('T')[0]
-                //     dates.push(fiveDays, today)
-                //     console.log("5 day range: ", dates);    // Remove after testing 09809890890890-890-80-
-                // } else if (dateRange === "1-month") {
-                //     let oneMonth = date.setMonth(date.getMonth() - 1)
-                //     oneMonth = new Date(oneMonth).toISOString().split('T')[0]
-                //     dates.push(oneMonth, today)
-                // }
-                if (stocks) {
-                    console.log("dayClose=", stocks.results[0].c)
-                    console.log("dayLow=", stocks.results[0].l)
-                }
-
-
-                //     const resStock = await axios.post(`${REACT_APP_SERVER_URL}/stocks/`, {
-                //         ticker: currentStock.id,
-                //         dates: dates
-                //     })
-
-                //     if (resStock.data) {
-                //         console.log('stocky', resStock.data);
-                //     }
-                //     else {
-                //         console.log('error getting stocks')
-                //     }
-            }
-
-            fetchData();
-        }, [{ id }]);
-
-    const handleChange = (e) => {
-        setDateRange(e.target.value)
-        console.log("Set Date Range", dateRange);   // Remove AFTER TESTING )()*()()*)*)*)*)*)*
-    }
-
-    const handleSubmit = () => {
+    const fetchStocks = async () => {
         const date = new Date();
         const today = date.toISOString().split('T')[0];
         const dates = [];
@@ -109,7 +40,7 @@ function Tweet(props) {
 
         console.log('DATES', dates)
         const currentStock = { id }
-        axios
+        await axios
             .post(`${REACT_APP_SERVER_URL}/stocks/`, {
                 ticker: currentStock.id,
                 dates: dates
@@ -117,13 +48,43 @@ function Tweet(props) {
             .then((response) => {
                 let res = response.data;
                 console.log('RESPONSE DATA: ', res)
-                console.log('before setStocks: ', stocks);
-                setStocks(res);
-                console.log('after setStocks: ', stocks)
+                // console.log('before setStocks: ', stocks);
+                // setStocks(res);
+                stocky = res;
+                console.log("STOCKY, ", stocky);    // remove later eoifjuioasdlhjf;asdhfo;uiasdhf
+                // console.log('after setStocks: ', stocks);
             })
             .catch((error) => {
                 console.log('ERROR: ', error);
             });
+    }
+
+    useEffect(() => {
+        console.log(location)
+        // const currentStock = { id };
+        // axios.post(`${REACT_APP_SERVER_URL}/tweets/`, currentStock.id)
+        //     .then((response) => {
+        //         console.log('RESPONSE DATA: ', response.data)
+        //         setScore(response.data)
+        //     })
+        //     .catch((error) => {
+        //         console.log('ERROR: ', error);
+        //     })
+
+        fetchStocks();
+    }, []);
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setDateRange(e.target.value)
+        console.log("Set Date Range", dateRange);   // Remove AFTER TESTING )()*()()*)*)*)*)*)*
+    }
+
+    const handleSubmit = () => {
+        console.log('before setStocks: ', stocks);
+
+        setStocks(stocky);
+        console.log('after setStocks: ', stocks);
     }
 
     return (
@@ -135,7 +96,7 @@ function Tweet(props) {
                         <h2 className="text-white">${ticker}</h2>
                         <Row>
                             <Col className="m-3 p-3 border border-primary border-1 border-dark rounded" style={{ backgroundColor: "#4D5656" }}>
-                                <Form onSubmit={handleSubmit} >
+                                <Form>
                                     <Form.Label className="mb-2 text-white" >Date Range: </Form.Label>
                                     <Form.Control
                                         className="border border-dark rounded"
@@ -154,19 +115,22 @@ function Tweet(props) {
                                 </Form>
                             </Col>
                         </Row>
-                        {/* {/* {
-                            Object.keys({ stocks }) != 0 ? ( */}
-                        {/* <Stock
-                            dayClose={stocks.results[0].c}
-                            dayLow={stocks.results[0].l}
-                            dayHigh={stocks.results[0].h}
-                        /> */}
 
-                        <Stock
-                            dayClose={"--"}
-                            dayLow={"--"}
-                            dayHigh={"--"}
-                        />
+                        {
+                            (Object.keys(stocks).length == 0)
+                                ?
+                                <Stock
+                                    dayClose={"--"}
+                                    dayLow={"--"}
+                                    dayHigh={"--"}
+                                />
+                                :
+                                <Stock
+                                    dayClose={stocks.results[0].c}
+                                    dayLow={stocks.results[0].l}
+                                    dayHigh={stocks.results[0].h}
+                                />
+                        }
 
                     </Col>
                     <Col className="border border-2 border-black pb-3" style={{ backgroundColor: "#38b262" }}>
