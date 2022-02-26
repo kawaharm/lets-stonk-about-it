@@ -22,11 +22,12 @@ function Tweet(props) {
 
     let currentStock = {};
 
-    const fetchStocks = async (company) => {
+    const fetchStocks = async () => {
+        const company = { id };
         const date = new Date();
         const today = Math.floor(date.getTime() / 1000);
         const dates = [];
-        const timePeriod = "";
+        let timePeriod = "";
         console.log("COMPANY", company);
 
         if (dateRange === "1-day") {
@@ -83,7 +84,7 @@ function Tweet(props) {
         fetchStocks(company);
         console.log("currentStock After fetchstocks, ", currentStock)
 
-    }, []);
+    }, [{ id }]);
 
     const handleChange = (e) => {
         e.preventDefault();
