@@ -8,6 +8,8 @@ html {
   background-color: rgba(33,37,41);
 }
 
+
+/* Navigation */
 .bg-navMain {
   background-color: #4D5656;
 }
@@ -26,6 +28,8 @@ html {
   color: red;
 }
 
+
+/* Main Components */
 .container {
   padding-bottom: 680px;
 }
@@ -43,6 +47,20 @@ html {
   font-size: 20px;
 }
 
+
+/* Homepage */
+.homepage {
+  position: relative;
+  z-index: 1;
+}
+
+.homepage-image {
+  position: absolute;
+  width: 60%;
+  height: auto;
+  z-index: 2;
+}
+
 .homeTitle {
   font-family: 'Impact', sans-serif;
   font-size: 5rem;
@@ -50,8 +68,10 @@ html {
   text-align: center;
   border: 3px solid white;
   border-radius: 50px;
-  margin: 50px 200px 50px 200px;
-  padding: 50px;
+  width: 25%;
+  padding: 20px;
+  position: relative;
+  z-index: 3;
 }
 
 .homeTitle p {
@@ -64,7 +84,7 @@ html {
 
 .homeSubTitle {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 3rem;
+  font-size: 3.5rem;
   text-align: center;
 }
 
@@ -75,5 +95,4 @@ html {
   margin: 10px 200px;
   padding: 20px;
   border: 1px solid white;
-  
 }

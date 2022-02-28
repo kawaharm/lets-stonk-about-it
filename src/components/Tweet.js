@@ -129,16 +129,16 @@ function Tweet(props) {
                             (Object.keys(stocks).length == 0 | stocks.resultsCount == 0)
                                 ?
                                 <Stock
-                                    dayClose={"--"}
-                                    dayLow={"--"}
-                                    dayHigh={"--"}
+                                    close={"--"}
+                                    low={"--"}
+                                    high={"--"}
                                 />
                                 :
                                 // console.log("STOCKS INSIDE RETURN", stocks)
                                 <Stock
-                                    dayClose={stocks.c[0]}
-                                    dayLow={stocks.l[0]}
-                                    dayHigh={stocks.h[0]}
+                                    close={stocks.c[0]}
+                                    low={stocks.l[0]}
+                                    high={stocks.h[0]}
                                 />
                         }
 
