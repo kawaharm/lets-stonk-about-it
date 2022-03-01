@@ -5,12 +5,9 @@ import { Button, Container, Row, Col, Image, Form } from 'react-bootstrap'
 
 function About() {
     return (
-        <div className="homepage bg-dark">
-            <div className="homeTitle text-dark bg-light">
-                <p>Let's <span>Stonk</span></p>
-                <p className="homeSubTitle text-dark">About It</p>
-            </div>
-            <div className="text-dark bg-light homeDescription">
+        <div className="about bg-dark">
+            <img className="about-image" src="./stonks_image.jpeg" alt="stonks meme image" />
+            <div className="text-dark bg-light aboutDescription">
                 <p>
                     On January 26, 2021, Elon Musk tweeted "Gamestonk!!" in reference to the "wallstreetbets"
                     Reddit page that was behind the unprecedented rise of Gamestop's stock price against the
