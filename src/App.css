@@ -61,7 +61,7 @@ html {
   font-size: 5rem;
   letter-spacing: 2px;
   text-align: center;
-  border: 3px solid white;
+  border: 3px solid red;
   border-radius: 50px;
   width: 50%;
   padding: 20px;
@@ -91,6 +91,24 @@ html {
 
 .howTitle p {
   font-size: 1rem;
+}
+
+.homeTweet {
+  display: flex;
+  font-family: "Helvetica", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  border: 1px solid #ccc;
+  width: 40%;
+  min-height: 150px;
+  padding: 10px;
+}
+
+.avatar {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 /* About */
