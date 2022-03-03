@@ -99,9 +99,10 @@ html {
   font-size: 14px;
   line-height: 18px;
   border: 1px solid #ccc;
-  width: 40%;
+  width: 70%;
   min-height: 150px;
   padding: 10px;
+  margin-top: 50px;
 }
 
 .avatar {
@@ -111,52 +112,28 @@ html {
   margin-right: 10px;
 }
 
+.content {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.nameAndHandle {
+  font-size: 1.25rem;
+}
+
 .name {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0rem;
   margin-right: 0.3rem;
 }
 
 .handle {
   color: #8899a6;
-  font-size: 13px;
 }
 
-
-
-
-
-.tweetBox {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 10px;
-  border-bottom: 8px solid #e6ecf0;
-  padding-right: 10px;
-  width: 50%;
-}
-
-.tweetBox form {
-  display: flex;
-  flex-direction: column;
-}
-
-.tweetContent {
-  display: flex;
-  padding: 20px;
-}
-
-.tweetContent img {
-  border-radius: 50%;
-  width: 70px;
-  height: 70px;
-}
-
-.tweetContent p {
-  flex: 1;
-  margin-left: 20px;
+.message {
+  margin-top: 0.5rem;
   font-size: 20px;
-
-  border: none;
-  outline: none;
+  color: #566573;
 }
 
 .tweetButton {
@@ -171,8 +148,6 @@ html {
   margin-top: 20px;
   margin-left: auto;
 }
-
-
 
 /* About */
 .about {
