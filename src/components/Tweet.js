@@ -15,6 +15,7 @@ function Tweet(props) {
     const [sentimentScore, setScore] = useState(0);
     const [dateRange, setDateRange] = useState("1-day");
     const [stocks, setStocks] = useState({});
+    const [stockgraph, setStockGraph] = useState(0);
     const { id } = useParams();
     let location = useLocation();
     let { stockName, ticker } = location.state;
@@ -49,9 +50,10 @@ function Tweet(props) {
                 dates: dates
             })
             .then((response) => {
-                let res = response.data;
-                currentStock = res;
-                console.log('CURRENT STOCK INSIDE FETCH ', currentStock);
+                // let res = response.data;
+                // currentStock = res;
+                // console.log('CURRENT STOCK INSIDE FETCH ', currentStock);
+                setStockGraph(response)
             })
             .catch((error) => {
                 console.log('ERROR: ', error);
@@ -73,7 +75,7 @@ function Tweet(props) {
         fetchStocks(company);
         console.log("currentStock After fetchstocks, ", currentStock)
 
-    }, [{ id }]);
+    }, [{ stockName }]);
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -123,10 +125,14 @@ function Tweet(props) {
                                     high={"--"}
                                 />
                                 :
+                                // <Stock
+                                //     close={stocks.c[0]}
+                                //     low={stocks.l[0]}
+                                //     high={stocks.h[0]}
                                 <Stock
-                                    close={stocks.c[0]}
-                                    low={stocks.l[0]}
-                                    high={stocks.h[0]}
+                                    close={"--"}
+                                    low={"--"}
+                                    high={"--"}
                                 />
                         }
 
@@ -134,6 +140,7 @@ function Tweet(props) {
                     <Col className="border border-2 border-black pb-3" style={{ backgroundColor: "#38b262" }}>
                         <h1 className="mt-5 mb-3 text-center graphTitle text-white">Average Sentiment Score for Tweets</h1>
                         <Image src={sentimentScore} />
+                        <Image src={stockgraph} />
                     </Col>
                 </Row >
             </Container >
