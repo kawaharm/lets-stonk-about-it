@@ -53,7 +53,7 @@ function Message() {
 
 function Buttons() {
     return (
-        <div className="tweetButtons">
+        <div className="buttons">
             <button class="tweetButton">Tweet</button>
         </div>
     )
