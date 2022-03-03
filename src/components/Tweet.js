@@ -14,7 +14,6 @@ function Tweet(props) {
     // Hooks
     const [sentimentScore, setScore] = useState(0);
     const [dateRange, setDateRange] = useState("1-day");
-    // const [timePeriod, setTimePeriod] = useState("");
     const [stocks, setStocks] = useState({});
     const { id } = useParams();
     let location = useLocation();
@@ -28,29 +27,19 @@ function Tweet(props) {
         const today = Math.floor(date.getTime() / 1000);
         const dates = [];
         let timePeriod = "";
-        console.log("COMPANY", company);
 
         if (dateRange === "1-day") {
             dates.push(today, today);
-            console.log('1 day dates: ', dates);
-            // setTimePeriod("D");
             timePeriod = "D";
         } else if (dateRange === "5-day") {
             let fiveDays = today - 5 * 86400;
             dates.push(fiveDays, today)
-            console.log('1 week dates: ', dates);
-
-            // setTimePeriod("W");
             timePeriod = "W";
 
         } else if (dateRange === "1-month") {
             let oneMonth = today - 2629743;
             dates.push(oneMonth, today)
-            console.log('1 month dates: ', dates);
-
-            // setTimePeriod("M");
             timePeriod = "M";
-
         }
 
         await axios
@@ -98,7 +87,7 @@ function Tweet(props) {
 
     return (
         <div className="bg-dark">
-            <Container className="mt-5 container" fluid="xl">
+            <Container className="mt-5" fluid="xl">
                 <Row className=" bg-border-color">
                     <Col className="p-5 border border-2 border-white" style={{ backgroundColor: "#5D6D7E" }}>
                         <h1 className="text-white">{stockName}</h1>
@@ -126,7 +115,7 @@ function Tweet(props) {
                         </Row>
 
                         {
-                            (Object.keys(stocks).length == 0 | stocks.resultsCount == 0)
+                            (Object.keys(stocks).length == 0 | stocks.s == 'no_data')
                                 ?
                                 <Stock
                                     close={"--"}
@@ -134,7 +123,6 @@ function Tweet(props) {
                                     high={"--"}
                                 />
                                 :
-                                // console.log("STOCKS INSIDE RETURN", stocks)
                                 <Stock
                                     close={stocks.c[0]}
                                     low={stocks.l[0]}
@@ -149,6 +137,26 @@ function Tweet(props) {
                     </Col>
                 </Row >
             </Container >
+            <div className="scoreDescription text-light">
+                How It Works:
+                <ol>
+                    <li>
+                        The last 100 tweets that mentions a company by its name and/or stock symbol are retrieved.
+                    </li>
+                    <li>
+                        Each tweet is passed through a sentiment analysis tool that gives it a normalized, weighted
+                        compound score between -1.000 (most extreme negative) and +1.000 (most extreme positive). Hyperlinks
+                        in messages were removed from tweets before analysis for accuracy.
+                    </li>
+                    <li>
+                        All 100 compound scores are sorted by date tweeted and averaged out to determine the mean
+                        compound score by date and then represented on a line graph .
+                    </li>
+                    <li>
+                        Users can
+                    </li>
+                </ol>
+            </div>
         </div>
     );
 }

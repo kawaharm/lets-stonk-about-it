@@ -29,10 +29,6 @@ html {
 
 
 /* Main Components */
-.container {
-  padding-bottom: 680px;
-}
-
 .bg-border-color {
   border: 3px solid #f5f5f5;
 }
