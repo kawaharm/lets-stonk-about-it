@@ -42,6 +42,28 @@ html {
   font-size: 20px;
 }
 
+.companyName {
+  font-family: 'Impact', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 1px;
+  text-align: center;
+  border: 3px solid red;
+  border-radius: 50px;
+  width: 30%;
+  padding: 10px;
+
+}
+
+.companyName p {
+  margin-bottom: 0;
+}
+
+.companyTicker {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
 
 /* Homepage */
 .homepage {
@@ -151,19 +173,21 @@ html {
 
 /* About */
 .about {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  text-align: center;
 }
 
 .about-image {
-
+  width: 100%;
 }
 
 .aboutDescription {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 1.2rem;
   text-align: center;
-  margin: 10px 200px;
   padding: 20px;
   border: 1px solid white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
