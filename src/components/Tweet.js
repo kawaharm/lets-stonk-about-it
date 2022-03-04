@@ -15,45 +15,29 @@ function Tweet(props) {
     const [sentimentScore, setScore] = useState(0);
     const [dateRange, setDateRange] = useState("1-day");
     const [stocks, setStocks] = useState({});
-    const [stockgraph, setStockGraph] = useState(0);
+    const [stockgraph, setStockGraph] = useState({});
     const { id } = useParams();
     let location = useLocation();
     let { stockName, ticker } = location.state;
 
     let currentStock = {};
 
+    console.log('this is currentStock', currentStock);
+
     const fetchStocks = async () => {
         const company = { id };
-        const date = new Date();
-        const today = Math.floor(date.getTime() / 1000);
-        const dates = [];
-        let timePeriod = "";
-
-        if (dateRange === "1-day") {
-            dates.push(today, today);
-            timePeriod = "D";
-        } else if (dateRange === "5-day") {
-            let fiveDays = today - 5 * 86400;
-            dates.push(fiveDays, today)
-            timePeriod = "W";
-
-        } else if (dateRange === "1-month") {
-            let oneMonth = today - 2629743;
-            dates.push(oneMonth, today)
-            timePeriod = "M";
-        }
 
         await axios
             .post(`${REACT_APP_SERVER_URL}/stocks/`, {
                 ticker: company.id,
-                period: timePeriod,
-                dates: dates
+                period: dateRange,
             })
             .then((response) => {
                 // let res = response.data;
                 // currentStock = res;
                 // console.log('CURRENT STOCK INSIDE FETCH ', currentStock);
-                setStockGraph(response)
+                console.log('STOCK REPSONSE', response);
+                setStockGraph(response.data);
             })
             .catch((error) => {
                 console.log('ERROR: ', error);
@@ -72,10 +56,10 @@ function Tweet(props) {
             })
 
         console.log("currentStock Before fetchstocks, ", currentStock)
-        fetchStocks(company);
+        fetchStocks();
         console.log("currentStock After fetchstocks, ", currentStock)
 
-    }, [{ stockName }]);
+    }, [stocks]);
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -105,9 +89,9 @@ function Tweet(props) {
                                         onChange={handleChange}
                                     >
                                         <option>Choose</option>
-                                        <option value="1-day">1 Day</option>
-                                        <option value="5-day">5 Days</option>
-                                        <option value="1-month">1 Month</option>
+                                        <option value="1d">1 Day</option>
+                                        <option value="5d">5 Days</option>
+                                        <option value="1m">1 Month</option>
                                     </Form.Control>
                                     <div className="text-center">
                                         <Button className="m-2 bg-success" type="button" onClick={handleSubmit}>SUBMIT</Button>
@@ -115,32 +99,11 @@ function Tweet(props) {
                                 </Form>
                             </Col>
                         </Row>
-
-                        {
-                            (Object.keys(stocks).length == 0 | stocks.s == 'no_data')
-                                ?
-                                <Stock
-                                    close={"--"}
-                                    low={"--"}
-                                    high={"--"}
-                                />
-                                :
-                                // <Stock
-                                //     close={stocks.c[0]}
-                                //     low={stocks.l[0]}
-                                //     high={stocks.h[0]}
-                                <Stock
-                                    close={"--"}
-                                    low={"--"}
-                                    high={"--"}
-                                />
-                        }
-
+                        <Stock stockgraph={stockgraph} />
                     </Col>
                     <Col className="border border-2 border-black pb-3" style={{ backgroundColor: "#38b262" }}>
                         <h1 className="mt-5 mb-3 text-center graphTitle text-white">Average Sentiment Score for Tweets</h1>
                         <Image src={sentimentScore} />
-                        <Image src={stockgraph} />
                     </Col>
                 </Row >
             </Container >
