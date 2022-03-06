@@ -13,19 +13,16 @@ const { REACT_APP_SERVER_URL } = process.env;
 function Tweet(props) {
     // Hooks
     const [sentimentScore, setScore] = useState(0);
-    const [dateRange, setDateRange] = useState("1-day");
+    const [dateRange, setDateRange] = useState("1d");
     const [stocks, setStocks] = useState({});
     const [stockgraph, setStockGraph] = useState({});
     const { id } = useParams();
+    let company = { id };
     let location = useLocation();
     let { stockName, ticker } = location.state;
 
-    let currentStock = {};
-
-    console.log('this is currentStock', currentStock);
-
     const fetchStocks = async () => {
-        const company = { id };
+        // const company = { id };
 
         await axios
             .post(`${REACT_APP_SERVER_URL}/stocks/`, {
@@ -41,7 +38,7 @@ function Tweet(props) {
     }
 
     useEffect(() => {
-        const company = { id };
+        // const company = { id };
         axios.post(`${REACT_APP_SERVER_URL}/tweets/`, company.id)
             .then((response) => {
                 setScore(response.data)
@@ -51,7 +48,7 @@ function Tweet(props) {
             })
 
         fetchStocks();
-    }, [stocks]);
+    }, [stockName]);
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -59,8 +56,7 @@ function Tweet(props) {
     }
 
     const handleSubmit = () => {
-        setStocks(currentStock);
-        console.log('STOCK AFTER HANDLESUBMIT', stocks);
+        fetchStocks();
     }
 
     return (
@@ -68,12 +64,13 @@ function Tweet(props) {
             <Container className="mt-5" fluid="xl">
                 <Row className=" bg-border-color">
                     <Col className="border border-2 border-white" style={{ backgroundColor: "#5D6D7E" }}>
-                        <h1 className="mt-4 text-white">{stockName}</h1>
-                        <h2 className="mb-3 text-white">${ticker}</h2>
-
+                        <div className="companyDescription mt-4 mb-3">
+                            <h1 className="text-white">{stockName}</h1>
+                            <h2 className="text-white">${ticker}</h2>
+                        </div>
                         <Stock stockgraph={stockgraph} />
                         <Row>
-                            <Col className="m-3 p-3 border border-primary border-1 border-dark rounded" style={{ backgroundColor: "#4D5656" }}>
+                            <Col className="m-4 p-3 border border-primary border-1 border-dark rounded" style={{ backgroundColor: "#4D5656" }}>
                                 <Form>
                                     <Form.Label className="mb-2 text-white" >Date Range: </Form.Label>
                                     <Form.Control
@@ -82,7 +79,6 @@ function Tweet(props) {
                                         value={dateRange}
                                         onChange={handleChange}
                                     >
-                                        <option>Choose</option>
                                         <option value="1d">1 Day</option>
                                         <option value="5d">5 Days</option>
                                         <option value="1mo">1 Month</option>
@@ -95,10 +91,10 @@ function Tweet(props) {
                         </Row>
                     </Col>
                     <Col className="border border-2 border-black pb-3" style={{ backgroundColor: "#38b262" }}>
-                        <h1 className="mt-4 mb-3 text-center graphTitle text-white">Average Sentiment Score for Tweets</h1>
-                        <Image src={sentimentScore} />
-                        <div className="scoreDescription text-light">
-                            How It Works:
+                        <h1 className="mt-4 mb-5 text-center graphTitle text-white">Average Sentiment by Tweets</h1>
+                        <Image className="" src={sentimentScore} />
+                        <div className="scoreDescription mt-4 text-light">
+                            <strong>How It Works:</strong>
                             <ol>
                                 <li>
                                     The last 100 tweets that mentions a company by its name and/or stock symbol are retrieved.
@@ -110,10 +106,11 @@ function Tweet(props) {
                                 </li>
                                 <li>
                                     All 100 compound scores are sorted by date tweeted and averaged out to determine the mean
-                                    compound score by date and then represented on a line graph .
+                                    compound score by date and then represented on a line graph.
                                 </li>
                                 <li>
-                                    Users can
+                                    Users can compare the sentiment graph with its stock performance (left) based on data from today, 5-day,
+                                    and 1-month range.
                                 </li>
                             </ol>
                         </div>
