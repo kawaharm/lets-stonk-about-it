@@ -30,6 +30,7 @@ function Tweet(props) {
                 period: dateRange,
             })
             .then((response) => {
+                console.log(response.data)
                 setStockGraph(response.data);
             })
             .catch((error) => {
