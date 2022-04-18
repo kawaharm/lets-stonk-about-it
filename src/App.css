@@ -4,22 +4,23 @@
   box-sizing: border-box;
 }
 
-html {
-  background-color: rgba(33,37,41);
+html,
+body {
+  background-color: rgba(33, 37, 41);
 }
 
 /* Navigation */
 .bg-navMain {
-  background-color: #4D5656;
+  background-color: #4d5656;
 }
 
 .navbar {
-  font-family: 'Poppins', sans-serif;
-  border-bottom: 3px solid #D5D8DC;
+  font-family: "Poppins", sans-serif;
+  border-bottom: 3px solid #d5d8dc;
 }
 
 .nav-logo {
-  font-family: 'Impact', sans-serif;
+  font-family: "Impact", sans-serif;
   font-size: 1.75rem;
 }
 
@@ -27,25 +28,23 @@ html {
   color: red;
 }
 
-
 /* Main Components */
 .bg-border-color {
   border: 3px solid #f5f5f5;
 }
 
-.graphTitle{
-  font-family: 'Poppins', sans-serif;
+.graphTitle {
+  font-family: "Poppins", sans-serif;
 }
 
-.stockDet{
-  font-family: 'Source Sans Pro', sans-serif;
+.stockDet {
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 20px;
 }
 
 .companyDescription {
   margin-left: 10px;
 }
-
 
 /* Homepage */
 .homepage {
@@ -57,7 +56,7 @@ html {
 }
 
 .homeTitle {
-  font-family: 'Impact', sans-serif;
+  font-family: "Impact", sans-serif;
   font-size: 8rem;
   letter-spacing: 2px;
   text-align: center;
@@ -76,16 +75,16 @@ html {
 }
 
 .homeSubTitle {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 3.5rem;
   text-align: center;
 }
 
 .howTitle {
-  font-family: 'Impact', sans-serif;
+  font-family: "Impact", sans-serif;
   font-size: 3rem;
   letter-spacing: 2px;
-  text-align: center; 
+  text-align: center;
 }
 
 .howTitle p {
@@ -163,7 +162,7 @@ html {
 }
 
 .aboutDescription {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 1.2rem;
   text-align: center;
   padding: 20px;
@@ -171,4 +170,100 @@ html {
   position: absolute;
   top: 50%;
   left: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .homeTitle {
+    font-size: 5rem;
+    width: 70%;
+  }
+
+  .homeSubTitle {
+    font-size: 2.5rem;
+  }
+
+  .homeTweet {
+    line-height: 15px;
+    width: 80%;
+  }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .nameAndHandle {
+    font-size: 1.2rem;
+  }
+
+  .message {
+    margin-top: 0.5rem;
+    font-size: 15px;
+    color: #566573;
+  }
+
+  .tweetButton {
+    font-size: 14px;
+    font-weight: 800;
+    border-radius: 25px;
+    width: 70px;
+    height: 35px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .homeTitle {
+    font-size: 3rem;
+    width: 70%;
+    border-radius: 25px;
+    padding: 8px;
+  }
+
+  .homeSubTitle {
+    font-size: 2rem;
+  }
+
+  .homeTweet {
+    line-height: 13px;
+    width: 80%;
+    padding: 10px;
+  }
+
+  .avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .content {
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 75%;
+  }
+
+  .nameAndHandle {
+    font-size: 0.8rem;
+    width: 70%;
+  }
+
+  .handle {
+    font-size: 0.7rem;
+  }
+
+  .message {
+    margin-top: 0.5rem;
+    font-size: 10px;
+    color: #566573;
+  }
+
+  .buttons {
+    margin-top: 12px;
+  }
+
+  .tweetButton {
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 25px;
+    width: 60px;
+    height: 25px;
+  }
 }
