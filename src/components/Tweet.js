@@ -57,7 +57,7 @@ function Tweet(props) {
   return (
     <div className="bg-dark">
       <Container className="mt-5" fluid="xl">
-        <Row className=" bg-border-color">
+        <Row className=" bg-border-color" xs={1} md={2}>
           <Col
             className="border border-2 border-white"
             style={{ backgroundColor: "#5D6D7E" }}
@@ -103,10 +103,14 @@ function Tweet(props) {
             className="border border-2 border-black pb-3"
             style={{ backgroundColor: "#38b262" }}
           >
-            <h1 className="mt-4 mb-5 text-center graphTitle text-white">
-              Average Sentiment by Tweets
-            </h1>
-            <Image src={sentimentScore} />
+            <div className="mt-4 mb-5 text-center graphTitle text-white">
+              <h1>Average Sentiment by Tweets</h1>
+            </div>
+
+            <div>
+              <Image src={sentimentScore} className="tweetGraph" />
+            </div>
+
             <div className="scoreDescription mt-4 text-light">
               <strong>How It Works:</strong>
               <ol>
