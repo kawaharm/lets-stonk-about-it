@@ -115,7 +115,7 @@ function Tweet(props) {
               <strong>How It Works:</strong>
               <ol>
                 <li>
-                  The last 100 tweets that mentions a company by its name and/or
+                  The last 500 tweets that mentions a company by its name and/or
                   stock symbol are retrieved.
                 </li>
                 <li>
@@ -132,8 +132,8 @@ function Tweet(props) {
                 </li>
                 <li>
                   Users can compare the sentiment graph with its stock
-                  performance (left) based on data from today, 5-day, and
-                  1-month range.
+                  performance based on data from today, 5-day, and 1-month
+                  range.
                 </li>
               </ol>
             </div>
