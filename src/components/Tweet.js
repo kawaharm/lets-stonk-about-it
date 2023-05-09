@@ -1,5 +1,5 @@
 // Imports
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { Button, Container, Row, Col, Image, Form } from "react-bootstrap";
 import axios from "axios";
@@ -9,14 +9,13 @@ import Stock from "./Stock";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const Tweet = () => {
-  // Hooks
   const [sentimentScore, setScore] = useState(0);
   const [dateRange, setDateRange] = useState("1d");
   const [stockgraph, setStockGraph] = useState({});
   const { id } = useParams();
-  let company = { id };
-  let location = useLocation();
-  let { stockName, ticker } = location.state;
+  const company = { id };
+  const location = useLocation();
+  const { stockName, ticker } = location.state;
 
   const fetchStocks = async () => {
     await axios

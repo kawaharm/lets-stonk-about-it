@@ -1,7 +1,7 @@
 // Imports
 import React from "react";
 
-function About() {
+const About = () => {
   return (
     <div className="about bg-dark">
       <img
@@ -26,6 +26,6 @@ function About() {
       </div>
     </div>
   );
-}
+};
 
 export default About;
