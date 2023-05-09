@@ -8,7 +8,7 @@ import Stock from "./Stock";
 // Use this key to connect to server
 const { REACT_APP_SERVER_URL } = process.env;
 
-function Tweet(props) {
+const Tweet = () => {
   // Hooks
   const [sentimentScore, setScore] = useState(0);
   const [dateRange, setDateRange] = useState("1d");
@@ -142,6 +142,6 @@ function Tweet(props) {
       </Container>
     </div>
   );
-}
+};
 
 export default Tweet;

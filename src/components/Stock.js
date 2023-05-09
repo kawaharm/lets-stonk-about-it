@@ -1,12 +1,13 @@
 // Imports
-import { Row, Container, Image } from "react-bootstrap";
+import { Row, Image } from "react-bootstrap";
 
-function Stock(props) {
+const Stock = () => {
+  const { stockgraph } = props;
   return (
     <Row className="stockDet">
-      <Image src={props.stockgraph} />
+      <Image src={stockgraph} />
     </Row>
   );
-}
+};
 
 export default Stock;

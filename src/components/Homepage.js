@@ -1,7 +1,7 @@
 // Imports
 import React from "react";
 
-function Homepage() {
+const Homepage = () => {
   return (
     <div className="homepage">
       <div className="homeTitle text-dark bg-light">
@@ -20,7 +20,7 @@ function Homepage() {
       </div>
     </div>
   );
-}
+};
 
 function ProfilePic() {
   return (

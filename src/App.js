@@ -14,7 +14,7 @@ import About from "./components/About";
 import NavbarMenu from "./components/NavbarMenu";
 
 // Functions
-function App() {
+const App = () => {
   return (
     <div className="bg-dark">
       <Router>
@@ -28,6 +28,6 @@ function App() {
       </Router>
     </div>
   );
-}
+};
 
 export default App;
