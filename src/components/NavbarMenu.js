@@ -34,16 +34,18 @@ const NavbarMenu = () => {
             active
           >
             {companyList.map((c) => {
-              <NavDropdown.Item
-                as={Link}
-                to={c.navName}
-                state={{
-                  stockName: c.name,
-                  ticker: c.ticker,
-                }}
-              >
-                {c.navName}
-              </NavDropdown.Item>;
+              return (
+                <NavDropdown.Item
+                  as={Link}
+                  to={c.navName}
+                  state={{
+                    stockName: c.name,
+                    ticker: c.ticker,
+                  }}
+                >
+                  {c.navName}
+                </NavDropdown.Item>
+              );
             })}
           </NavDropdown>
           <Nav.Link href="/about" className="text-light">
