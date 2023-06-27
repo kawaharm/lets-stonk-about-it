@@ -38,7 +38,6 @@ const Tweet = () => {
         setScore(response.data);
       })
       .catch((error) => {
-        console.log(company.id);
         console.log("ERROR: ", error);
       });
 
