@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import companyList from "../companyList";
@@ -37,7 +37,7 @@ const NavbarMenu = () => {
               return (
                 <NavDropdown.Item
                   as={Link}
-                  to={c.navName}
+                  to={`/${c.ticker}`}
                   state={{
                     stockName: c.name,
                     ticker: c.ticker,
