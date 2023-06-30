@@ -11,7 +11,7 @@ const { REACT_APP_SERVER_URL } = process.env;
 const Tweet = () => {
   const [sentimentScore, setScore] = useState(0);
   const [dateRange, setDateRange] = useState("1d");
-  const [stockgraph, setStockGraph] = useState({});
+  const [stockgraph, setStockGraph] = useState();
   const { id } = useParams();
   const company = { id };
   const location = useLocation();
@@ -24,7 +24,7 @@ const Tweet = () => {
         period: dateRange,
       })
       .then((response) => {
-        setStockGraph(response.data);
+        setStockGraph(response);
       })
       .catch((error) => {
         console.log("ERROR: ", error);
@@ -65,7 +65,13 @@ const Tweet = () => {
               <h1 className="text-white">{stockName}</h1>
               <h2 className="text-white">${ticker}</h2>
             </div>
-            <Stock stockgraph={stockgraph} />
+            {stockgraph && (
+              <Stock
+                x={stockgraph["data"]["index"]}
+                y={stockgraph["data"]["data"]}
+                name={stockName}
+              />
+            )}
             <Row>
               <Col
                 className="m-4 p-3 border border-primary border-1 border-dark rounded"
@@ -114,7 +120,7 @@ const Tweet = () => {
               <strong>How It Works:</strong>
               <ol>
                 <li>
-                  The last 500 tweets that mentions a company by its name and/or
+                  The last 100 tweets that mentions a company by its name and/or
                   stock symbol are retrieved.
                 </li>
                 <li>
