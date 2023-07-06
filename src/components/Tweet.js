@@ -31,8 +31,8 @@ const Tweet = () => {
       });
   };
 
-  useEffect(() => {
-    axios
+  const fetchTweets = async () => {
+    await axios
       .post(`${REACT_APP_SERVER_URL}/tweets/`, company.id)
       .then((response) => {
         setScore(response.data);
@@ -40,8 +40,11 @@ const Tweet = () => {
       .catch((error) => {
         console.log("ERROR: ", error);
       });
+  };
 
+  useEffect(() => {
     fetchStocks();
+    fetchTweets();
   }, [stockName]);
 
   const handleChange = (e) => {
