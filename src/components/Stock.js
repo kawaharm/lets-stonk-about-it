@@ -1,5 +1,4 @@
 // Imports
-import { Row, Image } from "react-bootstrap";
 import {
   Chart as ChartJS,
   CategoryScale,

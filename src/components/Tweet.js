@@ -1,7 +1,7 @@
 // Imports
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { Button, Container, Row, Col, Image, Form } from "react-bootstrap";
+import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import axios from "axios";
 import Stock from "./Stock";
 import {
