@@ -4,12 +4,34 @@ import { useParams, useLocation } from "react-router-dom";
 import { Button, Container, Row, Col, Image, Form } from "react-bootstrap";
 import axios from "axios";
 import Stock from "./Stock";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import plugin from "./plugin.js";
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 // Use this key to connect to server
 const { REACT_APP_SERVER_URL } = process.env;
 
 const Tweet = () => {
-  const [sentimentScore, setScore] = useState(0);
+  const [sentimentScores, setSentimentScores] = useState([]);
+  const [tweetDates, setTweetDates] = useState([]);
   const [dateRange, setDateRange] = useState("1d");
   const [stockgraph, setStockGraph] = useState();
   const { id } = useParams();
@@ -35,7 +57,8 @@ const Tweet = () => {
     await axios
       .post(`${REACT_APP_SERVER_URL}/tweets/`, company.id)
       .then((response) => {
-        setScore(response.data);
+        setTweetDates(response.data["dates"]);
+        setSentimentScores(response.data["avg_scores"]);
       })
       .catch((error) => {
         console.log("ERROR: ", error);
@@ -54,6 +77,18 @@ const Tweet = () => {
 
   const handleSubmit = () => {
     fetchStocks();
+  };
+
+  const tweetData = {
+    labels: tweetDates,
+    datasets: [
+      {
+        label: "Average Compound Score",
+        data: sentimentScores,
+        borderColor: "rgb(255, 0, 0)",
+        backgroundColor: "rgba(255, 0, 0, 0.5)",
+      },
+    ],
   };
 
   return (
@@ -116,7 +151,40 @@ const Tweet = () => {
             </div>
 
             <div>
-              <Image src={sentimentScore} className="tweetGraph" />
+              <Line
+                className="tweetGraph"
+                data={tweetData}
+                options={{
+                  responsive: true,
+                  plugins: {
+                    title: {
+                      display: true,
+                      text: `Sentimental Analysis for ${stockName}`,
+                    },
+                    legend: {
+                      display: false,
+                    },
+                    customCanvasBackgroundColor: {
+                      color: "white",
+                    },
+                  },
+                  scales: {
+                    x: {
+                      title: {
+                        display: true,
+                        text: "Dates",
+                      },
+                    },
+                    y: {
+                      title: {
+                        display: true,
+                        text: "Average Compound Score",
+                      },
+                    },
+                  },
+                }}
+                plugins={[plugin]}
+              />
             </div>
 
             <div className="scoreDescription mt-4 text-light">
