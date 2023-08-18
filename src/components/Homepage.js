@@ -1,7 +1,25 @@
 // Imports
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
+
+// Use this key to connect to server
+const { REACT_APP_SERVER_URL } = process.env;
+const test = 123;
+const fetchThreads = async () => {
+  await axios
+    .post(`${REACT_APP_SERVER_URL}/threads/`, test)
+    .then((response) => {
+      console.log("finjish");
+    })
+    .catch((error) => {
+      console.log("ERROR: ", error);
+    });
+};
 
 const Homepage = () => {
+  useEffect(() => {
+    fetchThreads();
+  }, []);
   return (
     <div className="homepage">
       <div className="homeTitle text-dark bg-light">

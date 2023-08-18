@@ -55,7 +55,7 @@ const Tweet = () => {
 
   const fetchTweets = async () => {
     await axios
-      .post(`${REACT_APP_SERVER_URL}/tweets/`, company.id)
+      .post(`${REACT_APP_SERVER_URL}/threads/`, company.id)
       .then((response) => {
         setTweetDates(response.data["dates"]);
         setSentimentScores(response.data["avg_scores"]);
